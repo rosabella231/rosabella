@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Dog Image</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #ff9966, #ff5e62);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 3rem;
+      font-weight: bold;
+      text-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 15px 35px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #ff5e62;
+      background: #fff;
+      border: 2px solid #ff5e62;
+      border-radius: 50px;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover {
+      color: #fff;
+      background: #ff5e62;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transform: scale(1.1);
+    }
+
+    #image-container {
+      margin-top: 30px;
+    }
+
+    #dog-image {
+      margin-top: 20px;
+      max-width: 90%;
+      height: auto;
+      border: 5px solid #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      animation: zoomIn 0.8s ease-in-out;
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Dog Image</h1>
+  <button onclick="getRandomDog()">Fetch New Image</button>
+  <div id="image-container"></div>
+
+  <script>
+    function getRandomDog() {
+      fetch("https://dog.ceo/api/breeds/image/random")
+        .then(response => response.json())
+        .then(data => {
+          const imageContainer = document.getElementById('image-container');
+          imageContainer.innerHTML = '';
+          const img = document.createElement("img");
+          img.src = data.message;
+          img.id = "dog-image";
+          imageContainer.appendChild(img);
+        })
+        .catch(error => console.error("Error fetching the image:", error));
+    }
+  </script>
+</body>
+</html>
